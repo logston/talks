@@ -1,0 +1,19 @@
+import pygame
+import pygame.midi
+import time
+
+pygame.init()
+pygame.midi.init()
+port = pygame.midi.get_default_output_id()
+instrument = 19
+note = 64
+velocity = 10
+midi_out = pygame.midi.Output(port, 0)
+midi_out.set_instrument(instrument)
+
+midi_out.note_on(note, velocity)
+time.sleep(1)
+
+midi_out.note_off(note, 0)
+
+pygame.midi.quit()
