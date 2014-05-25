@@ -40,7 +40,7 @@ def play_genome():
                     continue
                 note = get_note(char)
                 midi_out.note_on(note, 127)
-                sleep(0.25)
+                sleep(0.5)
                 midi_out.note_off(note, 127)
 
     finally:
