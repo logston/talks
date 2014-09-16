@@ -44,7 +44,6 @@ Where are we?
 Linear model 1 (beginner at one end and expert at the other)
 
 .. image:: images/skill_spectrum.jpg
-   :height: 600
    :width: 400
    :alt: Skill Spectrum
 
@@ -60,7 +59,6 @@ Linear model 2 (beginner at one end and infinity at the other end)
 First 5% is beginner and last 5% is expert.
 
 .. image:: images/skill_spectrum_adjusted.jpg
-   :height: 600
    :width: 400
    :alt: Adjusted Skill Spectrum
 
@@ -73,8 +71,7 @@ Where are we?
 
 Ball and stick model 3 (Basics -> Specifics?) 
 
-.. image:: images/skill_domain.jpg
-   :height: 600
+.. image:: images/domain_knowledge.jpg
    :width: 400
    :alt: Skill Domain
 
@@ -87,8 +84,7 @@ Where are we?
 
 Ball and stick model (Basics -> All differnt types of subjects)
 
-.. image:: images/skill_domain_adjusted.jpg
-   :height: 600
+.. image:: images/domain_knowledge_adjusted.jpg
    :width: 400
    :alt: Adjusted Skill Domain
 
@@ -102,7 +98,6 @@ Where are we?
 Combining the graphs from before...
 
 .. image:: images/skill_domain_spectrum_graph.jpg
-   :height: 600
    :width: 400
    :alt: Skill Spectrum and Domain Graph
 
@@ -114,7 +109,6 @@ Where do we want to be?
 =======================
 
 .. image:: images/skill_domain_spectrum_graph_with_growth.jpg
-   :height: 600
    :width: 400
    :alt: Skill Spectrum and Domain Graph with Growth
 
@@ -126,7 +120,6 @@ My Approach to Answering the Question
 I asked several self-proclaimed and personally opinioned intermediate to expert level programmers these questions.
 
 .. image:: images/experts.jpg
-   :height: 600
    :width: 400
    :alt: Intermediate and Expert Programmers
 
@@ -175,7 +168,6 @@ BIG THANKS
 Many Many Thanks to all who I interviewed for this talk. 
 
 .. image:: images/experts.jpg
-   :height: 600
    :width: 400
    :alt: Intermediate and Expert Programmers
 
