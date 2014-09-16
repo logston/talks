@@ -1,5 +1,8 @@
-
-
+:title: So What's Next?
+:author: Paul Logston
+:description: Answers to the question "How do I grow as a programmer?"
+:keywords: programming, python, intermediate, beginner
+:css: style.css
 
 ----
 
@@ -7,8 +10,10 @@ So What's Next
 ==============
 
 Paul Logston
+------------
 
 @PaulLogston
+
 plog.logston.me
 
 ----
@@ -21,7 +26,6 @@ I'm done with *Learn Python the Hard Way*, so what's next?
 - What's a good project to build my Python skills?
 - What book should I read to become a better Python Programmer?
 - What's an intermediate level programmer?
-
 
 ----
 
@@ -39,6 +43,11 @@ Where are we?
 
 Linear model 1 (beginner at one end and expert at the other)
 
+.. image:: images/skill_spectrum.jpg
+   :height: 600
+   :width: 400
+   :alt: Skill Spectrum
+
 ----
 
 Map
@@ -46,9 +55,14 @@ Map
 Where are we?
 =============
 
-Linear model 2 (beginner at one end and initiy at the other end)
+Linear model 2 (beginner at one end and infinity at the other end)
 
 First 5% is beginner and last 5% is expert.
+
+.. image:: images/skill_spectrum_adjusted.jpg
+   :height: 600
+   :width: 400
+   :alt: Adjusted Skill Spectrum
 
 ----
 
@@ -59,6 +73,11 @@ Where are we?
 
 Ball and stick model 3 (Basics -> Specifics?) 
 
+.. image:: images/skill_domain.jpg
+   :height: 600
+   :width: 400
+   :alt: Skill Domain
+
 ----
 
 Map
@@ -68,6 +87,11 @@ Where are we?
 
 Ball and stick model (Basics -> All differnt types of subjects)
 
+.. image:: images/skill_domain_adjusted.jpg
+   :height: 600
+   :width: 400
+   :alt: Adjusted Skill Domain
+
 ----
 
 Map
@@ -75,7 +99,12 @@ Map
 Where are we?
 =============
 
-Combining models we get Gradient Model 1.
+Combining the graphs from before...
+
+.. image:: images/skill_domain_spectrum_graph.jpg
+   :height: 600
+   :width: 400
+   :alt: Skill Spectrum and Domain Graph
 
 ----
 
@@ -84,17 +113,22 @@ Map
 Where do we want to be?
 =======================
 
-Gradinent model with possible routes.
+.. image:: images/skill_domain_spectrum_graph_with_growth.jpg
+   :height: 600
+   :width: 400
+   :alt: Skill Spectrum and Domain Graph with Growth
 
 ----
-
 
 My Approach to Answering the Question
 =====================================
 
 I asked several self-proclaimed and personally opinioned intermediate to expert level programmers these questions.
 
-picture of experts.
+.. image:: images/experts.jpg
+   :height: 600
+   :width: 400
+   :alt: Intermediate and Expert Programmers
 
 ----
 
@@ -103,7 +137,7 @@ Responses
 Describe an intermediate level programmer?
 ------------------------------------------
 
-- Knows most builtins.
+- Knows most __builtins__.
 - Can write clean code.
 - Needs less direction than a beginner programmer but more direction than a senior programmer.
 
@@ -140,7 +174,11 @@ BIG THANKS
 
 Many Many Thanks to all who I interviewed for this talk. 
 
-Image of peeps 
+.. image:: images/experts.jpg
+   :height: 600
+   :width: 400
+   :alt: Intermediate and Expert Programmers
 
 Questions?
 ==========
+
