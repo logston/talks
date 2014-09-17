@@ -2,7 +2,7 @@
 :author: Paul Logston
 :description: Answers to the question "How do I grow as a programmer?"
 :keywords: programming, python, intermediate, beginner
-:css: style.css
+:skip-help: true
 
 ----
 
@@ -38,78 +38,74 @@ Assumptions I Made
 
 Map
 ===
-Where are we?
-=============
 
-Linear model 1 (beginner at one end and expert at the other)
+Where are we?
+-------------
 
 .. image:: images/skill_spectrum.jpg
-   :width: 400
+   :width: 800
    :alt: Skill Spectrum
 
 ----
 
 Map
 ===
-Where are we?
-=============
 
-Linear model 2 (beginner at one end and infinity at the other end)
+Where are we?
+-------------
 
 First 5% is beginner and last 5% is expert.
 
 .. image:: images/skill_spectrum_adjusted.jpg
-   :width: 400
+   :width: 800
    :alt: Adjusted Skill Spectrum
 
 ----
 
 Map
 ===
-Where are we?
-=============
 
-Ball and stick model 3 (Basics -> Specifics?) 
+Where are we?
+-------------
 
 .. image:: images/domain_knowledge.jpg
-   :width: 400
+   :width: 800
    :alt: Skill Domain
 
 ----
 
 Map
 ===
-Where are we?
-=============
 
-Ball and stick model (Basics -> All differnt types of subjects)
+Where are we?
+-------------
 
 .. image:: images/domain_knowledge_adjusted.jpg
-   :width: 400
+   :width: 800
    :alt: Adjusted Skill Domain
 
 ----
 
 Map
 ===
+
 Where are we?
-=============
+-------------
 
-Combining the graphs from before...
-
-.. image:: images/skill_domain_spectrum_graph.jpg
-   :width: 400
+.. image:: images/skill_domain_graph.jpg
+   :width: 800
    :alt: Skill Spectrum and Domain Graph
 
 ----
 
 Map
 ===
-Where do we want to be?
-=======================
 
-.. image:: images/skill_domain_spectrum_graph_with_growth.jpg
-   :width: 400
+Where do we want to be?
+-----------------------
+
+.. image:: images/skill_domain_graph_with_growth.jpg
+   :width: 800
    :alt: Skill Spectrum and Domain Graph with Growth
 
 ----
@@ -117,20 +113,21 @@ Where do we want to be?
 My Approach to Answering the Question
 =====================================
 
-I asked several self-proclaimed and personally opinioned intermediate to expert level programmers these questions.
+I asked several intermediate to expert level programmers a few questions.
 
 .. image:: images/experts.jpg
-   :width: 400
+   :width: 800
    :alt: Intermediate and Expert Programmers
 
 ----
 
 Responses
 =========
+
 Describe an intermediate level programmer?
 ------------------------------------------
 
-- Knows most __builtins__.
+- Knows most ``__builtins__``
 - Can write clean code.
 - Needs less direction than a beginner programmer but more direction than a senior programmer.
 
@@ -138,6 +135,7 @@ Describe an intermediate level programmer?
 
 Responses
 =========
+
 What did you do that caused you to grow out of beginnerhood?
 ------------------------------------------------------------
 
@@ -145,15 +143,17 @@ What did you do that caused you to grow out of beginnerhood?
 - Pursue you own projects outside of work projects. 
 - Learn on your own.*
 
-- Ask questions 
-  - What is more pythonic?
-  - What's easier to maintain and why?
-  - What would perform better?
+* Ask questions 
+
+  * What is more pythonic?
+  * What's easier to maintain and why?
+  * What would perform better?
 
 ----
 
 My Perspective
 ==============
+
 Where to go from here?
 ----------------------
 
@@ -165,12 +165,9 @@ Where to go from here?
 BIG THANKS
 ==========
 
-Many Many Thanks to all who I interviewed for this talk. 
+Many many thanks to everyone I interviewed for this talk. 
 
 .. image:: images/experts.jpg
-   :width: 400
+   :width: 800
    :alt: Intermediate and Expert Programmers
-
-Questions?
-==========
 

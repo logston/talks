@@ -15,6 +15,7 @@ h2 {
 img {
   position: relative;
   text-align: center;
+  top: -25px;
 }
 
 p {
@@ -23,6 +24,10 @@ p {
 
 li {
   font-size: 2em;
+}
+
+ul li ul li {
+  font-size: 1em;
 }
 
 #banner-top {
@@ -63,4 +68,9 @@ li {
     background: linear-gradient(to bottom,  #fefcea 0%,#f1da36 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefcea', endColorstr='#f1da36',GradientType=0 ); /* IE6-9 */
     /*border-top: 1px solid #EFD007;*/
+}
+
+.step {
+  position: relative;
+  top: 50px;
 }
