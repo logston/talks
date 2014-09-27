@@ -2,12 +2,13 @@ from __future__ import print_function
 
 
 class Map(object):
-    def __init__(self, points=None, width=4, height=4):
+    def __init__(self, point_list=None, width=4, height=4):
         self.width = width
         self.height = height
-        self.points = points if points else {}
-        self.add_points(self.points)
-    
+        self.points = {}
+        if point_list:
+            self.add_points(point_list)
+ 
     def add_point(self, point):
         self.points[(point.x, point.y)] = None
     
