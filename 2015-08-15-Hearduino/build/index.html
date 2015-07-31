@@ -1,0 +1,65 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml"><head><title>The Graph To My Hearduino</title><meta name="generator" content="Hovercraft! 1.0 http://regebro.github.com/hovercraft"></meta><meta name="author" content="Paul Logston"></meta><meta name="description" content="A look at wrapping the olimex EKG shield with Python"></meta><meta name="keywords" content="ekg, arduino, olimex, emg, python"></meta><link rel="stylesheet" href="css/hovercraft.css" media="all"></link><link rel="stylesheet" href="css/impressConsole.css" media="all"></link><link rel="stylesheet" href="css/highlight.css" media="all"></link></head><body class="impress-not-supported"><div id="impress"><div class="step step-level-1" step="0" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="0" data-y="0" data-z="0"><h1 id="the-graph-to-my-heardunio">The Graph To My Heardunio</h1><h2 id="paul-logston">Paul Logston</h2><p><img src="images/twitter-4096-black.png" alt="Twitter Handle" width="20"></img> ...... <a href="https://twitter.com/PaulLogston">@paullogston</a></p><p><strong>W^3</strong> ... <a href="https://plog.logston.me">plog.logston.me</a></p></div><div class="step step-level-1" step="1" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="1600" data-y="0" data-z="0"><h1 id="toc">TOC</h1></div><div class="step step-level-1" step="2" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="3200" data-y="0" data-z="0"><h1 id="ekg-theory">EKG Theory</h1><h2 id="crash-course">Crash Course</h2><p><img src="images/ekg-video.gif" alt="ekg_fast" height="500"></img></p><p>[1] Primal Pictures</p></div><div class="step step-level-1" step="3" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="4800" data-y="0" data-z="0"><h1 id="id1">EKG Theory</h1><h2 id="id2">Crash Course</h2><p><img src="images/ekg_nsr.gif" alt="ekg_nsr" height="200"></img> [2] Medical Training and Simulation LLC</p><p><img src="images/graphpaper.png" alt="ekg_graph" height="400"></img> [3] ????</p></div><div class="step step-level-1" step="4" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="6400" data-y="0" data-z="0"><h1 id="building-it">Building It</h1><p><img src="images/arduino.jpg" alt="arduino" height="200"></img></p><p>[Arduino]</p><p><img src="images/olimex_shield.jpg" alt="olimex_shield" height="200"></img></p><p>[Olimex EKG Shield]</p><ul><li>$7 dollar Arduino</li><li>$50 shield</li><li>$20 leads</li><li>$5 red dots</li><li><strong>$82</strong> TOTAL</li></ul></div><div class="step step-level-1" step="5" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="8000" data-y="0" data-z="0"><h1 id="writing-it">Writing It</h1><h2 id="olimex-shield-output">Olimex Shield Output</h2><p>It streams packets that it builds at <tt>SAMPLE_FREQUENCY</tt> (125 hz)</p><pre class="highlight ">//Read the 6 ADC inputs and store current values in Packet
+for(CurrentCh=0;CurrentCh&lt;6;CurrentCh++){
+  ADC_Value = analogRead(CurrentCh);
+  TXBuf[((2*CurrentCh) + HEADERLEN)] = ((unsigned char)((ADC_Value &amp; 0xFF00) &gt;&gt; 8));  // Write High Byte
+  TXBuf[((2*CurrentCh) + HEADERLEN + 1)] = ((unsigned char)(ADC_Value &amp; 0x00FF));     // Write Low Byte
+}
+
+// Send Packet
+for(TXIndex=0;TXIndex&lt;17;TXIndex++){
+//    Serial.write(TXBuf[TXIndex]);
+    Serial.print(TXBuf[TXIndex], HEX);
+    Serial.println("");
+}</pre></div><div class="step step-level-1" step="6" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="9600" data-y="0" data-z="0"><h1 id="id3">Writing It</h1><h2 id="id4">Olimex Shield Output</h2><pre class="highlight ">struct Olimexino328_packet
+{
+  uint8_t       sync0;          // = 0xa5
+  uint8_t       sync1;          // = 0x5a
+  uint8_t       version;        // = 2 (packet version)
+  uint8_t       count;          // packet counter. Increases by 1 each packet.
+  uint16_t      data[6];        // 10-bit sample (= 0 - 1023) in big endian (Motorola) format.
+  uint8_t       switches;       // State of PD5 to PD2, in bits 3 to 0.
+};</pre></div><div class="step step-level-1" step="7" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="11200" data-y="0" data-z="0"><h1 id="id5">Writing It</h1><h2 id="pyserial">PySerial</h2><p><img src="images/pyserial.png" alt="logo" width="200"></img></p><p>==</p><p><img src="images/giphy_1.gif" alt="bowl" width="200"></img></p></div><div class="step step-level-1" step="8" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="12800" data-y="0" data-z="0"><h1 id="id6">Writing It</h1><h2 id="reading-from-serial-port">Reading From Serial Port</h2><pre class="highlight ">class PacketStreamReader:
+   def __init__(self, serial):
+        self._serial = serial
+
+    def _get_next_packet(self):
+        byte0, byte1 = 0, 0
+
+        while byte0 != SYNC0 or byte1 != SYNC1:
+            # If we don't have enough data to do ALL of the following,
+            # return None.
+            #   - Move current byte 1 into byte0 position
+            #   - Read a new byte into byte1  (1 byte)
+            #   - Read the rest of a packet into a buffer (PACKET_SIZE - 2 bytes)
+            # We need at least (PACKET_SIZE - 2) + 1 bytes before
+            # attempting to get the next packet.
+            in_waiting = self._serial.inWaiting()
+            if in_waiting &lt; PACKET_SIZE - 1:
+                return None
+            byte0, byte1 = byte1, self._serial.read()
+
+        buff = bytearray()
+        buff.append(ord(byte0))
+        buff.append(ord(byte1))
+        # read 15 more bytes
+        buff.extend(self._serial.read(PACKET_SIZE -2))
+        return buff</pre></div><div class="step step-level-1" step="9" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="14400" data-y="0" data-z="0"><h1 id="id7">Writing It</h1><h2 id="how-to-we-build-broken-values">How to we build broken values?</h2><pre class="highlight ">def calculate_values_from_packet_data(data):
+   values = []
+
+    for index in range(0, len(data), 2):
+        # byte_a is the most significant byte and byte_b is
+        # the least significant byte.
+        byte_a, byte_b = data[index], data[index + 1]
+        val = (byte_a &lt;&lt; 8) | byte_b
+        # For some reason the data comes in upside down.
+        # Flip data around a horizontal axis.
+        val = (val - 1024) * -1
+        values.append(val)
+
+    return values</pre></div><div class="step step-level-1" step="10" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="16000" data-y="0" data-z="0"><h1 id="using-it">Using It</h1><h2 id="at-the-command-line">at the command line...</h2><pre class="highlight ">$ exg -p /dev/tty.usbmodem1411
+
+$ exg -f mock-data/nsr.bin</pre><p>EXTCHANGE FOR GIF</p><p><img src="images/olimex_nsr.png" alt="olimex_nsr_video" width="800"></img></p></div><div class="step step-level-1" step="11" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="17600" data-y="0" data-z="0"><h1 id="id8">Using It</h1><h2 id="compare">Compare</h2><p><img src="images/olimex_nsr.png" alt="olimex_nsr" width="800"></img></p><p><img src="images/lifepak_nsr.jpg" alt="lifepak_nsr" width="800"></img></p></div><div class="step step-level-1" step="12" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="19200" data-y="0" data-z="0"><h1 id="id9">Using It</h1><h2 id="id10">Compare</h2><p><img src="images/olimex_shield.jpg" alt="olimex_shield" height="200"></img> <img src="images/lifepak.jpg" alt="lifepak" width="300"></img></p></div><div class="step step-level-1" step="13" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="20800" data-y="0" data-z="0"><h1 id="id11">Using It</h1><h2 id="live-demo">Live Demo</h2><p>Can I get a volunteer?!</p><p><img src="images/olimex_nsr.png" alt="olimex_nsr_video" width="800"></img></p></div><div class="step step-level-1" step="14" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="22400" data-y="0" data-z="0"><h1 id="analysis">Analysis</h1><p>Key Points from Live Demo</p><ul><li>Not medical grade</li><li>Nothing but course assessment of pt</li><li>Time drift</li></ul></div><div class="step step-level-1" step="15" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="24000" data-y="0" data-z="0"><h1 id="thank-you">Thank You</h1><ul><li>CPR123</li><li>BOF room</li></ul><p>Questions?</p></div><div class="step step-level-1" step="16" data-rotate-x="0" data-rotate-y="0" data-rotate-z="0" data-scale="1" data-x="25600" data-y="0" data-z="0"><h1 id="bibliography">Bibliography</h1><p>[1]
+Anatomy &amp; Physiology Online - Cardiac conduction system and its relationship with ECG
+Primal Pictures - 3D Human Anatomy
+<a href="https://www.youtube.com/watch?v=v3b-YhZmQu8">https://www.youtube.com/watch?v=v3b-YhZmQu8</a></p><p>[2]
+Medical Training and Simulation LLC</p><p>[3] CPR123</p></div></div><div id="hovercraft-help" class="hide"><table><tr><th>Space</th><td>Forward</td></tr><tr><th>Right, Down, Page Down</th><td>Next slide</td></tr><tr><th>Left, Up, Page Up</th><td>Previous slide</td></tr><tr><th>P</th><td>Open presenter console</td></tr><tr><th>H</th><td>Toggle this help</td></tr></table></div><script type="text/javascript" src="js/impress.js"></script><script type="text/javascript" src="js/impressConsole.js"></script><script type="text/javascript" src="js/hovercraft.js"></script></body></html>
